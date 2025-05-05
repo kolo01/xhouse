@@ -1,0 +1,257 @@
+<app-navbar />
+<div class="single-property section" style="margin-top: 40px">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" *ngIf="property.images && property.images.length > 0; else elseBlock">
+            <ng-container *ngFor="let image of property.images">
+              <div class="carousel-item active">
+                <img [src]="'https://res.cloudinary.com/dcjjkfjas/' + image.image" class="d-block w-100" alt="{{ property.label }}">
+              </div>
+            </ng-container>
+          </div>
+          <ng-template #elseBlock>
+            <img src="assets/images/shooting_photo.png" class="card-img-top" alt="{{ property.label }}" height="200" style="object-fit: cover;">
+          </ng-template>
+          <button class="carousel-control-prev" style="color:red" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" style="color:red"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+        <div class="main-content">
+          <h4>{{ property.label }}</h4>
+          <pre>
+                  {{ property.description }}
+                  </pre
+          >
+        </div>
+        <p-accordion [multiple]="true" [activeIndex]="[0]">
+          <p-accordionTab header="Commodités">
+            <li>N° Chambre : {{ property.bedrooms_number }}</li>
+            <li>N° Douche : {{ property.bathrooms_number }}</li>
+            <li>Prix : {{ property.price }} XOF</li>
+          </p-accordionTab>
+          <p-accordionTab header="Avantages">
+            <li>
+              Piscine :
+              {{
+                property.characteristics[0].swimming_pool == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+            <li>
+              Espace vert :
+              {{
+                property.characteristics[0].green_space == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+            <li>
+              Ecole/Université :
+              {{
+                property.characteristics[0].nearby_school_or_university == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+            <li>
+              Centre Commercial :
+              {{
+                property.characteristics[0].city_center == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+            <li>
+              Gardien :
+              {{
+                property.characteristics[0].garden == false
+                  ? "non"
+                  : "oui"
+              }}
+            </li>
+            <li>
+              Zone calme :
+              {{
+                property.characteristics[0].quiet_area == false ? "non" : "oui"
+              }}
+            </li>
+            <li>
+              Balcon/Terrasse :
+              {{
+                property.characteristics[0].balcony_terrace == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+            <li>
+              Salle de gym :
+              {{
+                property.characteristics[0].swimming_pool == false
+                  ? "non"
+                  : " oui"
+              }}
+            </li>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+      <div class="col-lg-4">
+        <div class="info-table">
+          <ul>
+            <li>
+              <img
+                src="icons/surface.png"
+                alt="Surface"
+                style="max-width: 52px"
+              />
+              <h4>Surface<br /><span> {{property.surface}}m²</span></h4>
+            </li>
+            <li>
+              <img
+                src="icons/contrat.png"
+                alt="Contrat"
+                style="max-width: 52px"
+              />
+              <h4>Contrat<br /><span>Contrat disponible</span></h4>
+            </li>
+            <li>
+              <img
+                src="icons/paiement.png"
+                alt="Paiement"
+                style="max-width: 52px"
+              />
+              <h4>
+                Paiement<br /><span>Possibilité de valider le paiement</span>
+              </h4>
+            </li>
+            <li>
+              <img
+                src="icons/garantie.png"
+                alt="Garantie"
+                style="max-width: 52px"
+              />
+              <h4>Garantie<br /><span>Nous sommes disponibles 24/7</span></h4>
+            </li>
+          </ul>
+        </div>
+        <div class="button-group" style="margin-top: 20px">
+          <button (click)="askForVisit()" class="btn btn-primary">
+            Demande de visite
+          </button>
+          <p-dialog
+            [modal]="true"
+            [(visible)]="visible"
+            [style]="{ width: '30rem' }"
+          >
+            <span class="p-text-secondary block mb-6">Demande de visite </span>
+            <div class="flex align-items-center gap-3 mb-3">
+              <label for="location-date" class="label-above font-semibold"
+                >Date</label
+              >
+              <p-calendar
+                [(ngModel)]="locationDate"
+                [showIcon]="true"
+                [showOnFocus]="false"
+                class="input-field"
+                inputId="location-date"
+                [iconDisplay]="'input'"
+              ></p-calendar>
+            </div>
+            <div class="flex align-items-center gap-3 mb-5">
+              <label for="location-comment" class="label-above font-semibold"
+                >Commentaire</label
+              >
+              <textarea
+                [(ngModel)]="locationComment"
+                pInputText
+                id="location-comment"
+                class="input-field"
+                autocomplete="off"
+              ></textarea>
+            </div>
+            <div class="flex justify-content-end gap-2">
+              <p-button
+                label="Annuler"
+                severity="danger"
+                (click)="resetForm()"
+              />
+              <p-button label="Envoyer" (click)="sendVisitRequest(property.id)"></p-button>
+            </div>
+          </p-dialog>
+        </div>
+        <div class="button-group" style="margin-top: 20px">
+          <button (click)="askLocation()" class="btn btn-dark">
+            Demande de location
+          </button>
+          <p-dialog
+            [modal]="true"
+            [(visible)]="visible1"
+            [style]="{ width: '30rem' }"
+          >
+            <span class="p-text-secondary block mb-6">Demande de location</span>
+            <div class="flex align-items-center gap-3 mb-5">
+              <label for="location-comment" class="label-above font-semibold"
+                >Commentaire</label
+              >
+              <textarea
+                [(ngModel)]="locationComment"
+                pInputText
+                id="location-comment"
+                class="input-field"
+                autocomplete="off"
+              ></textarea>
+            </div>
+            <div class="flex justify-content-end gap-2">
+              <p-button
+                label="Annuler"
+                severity="danger"
+                (click)="resetForm()"
+              ></p-button>
+              <p-button label="Envoyer" (click)="sendLocationRequest(property.id)"></p-button>
+            </div>
+          </p-dialog>
+          <div id="sociallocker">
+            <!-- Contenu verrouillé -->
+            <div id="sociallocker-links" *ngIf="!isPaid">
+              <img src="/images/visite.jpeg" alt="Visite virtuelle" />
+              <button
+                class="btn btn-success"
+                (click)="initializePaiementPro()"
+                [disabled]="isLoading"
+                style="
+                  position: absolute;
+                  bottom: 15%;
+                  left: 50%;
+                  transform: translateX(-50%);
+                "
+              >
+                <span *ngIf="!isLoading">Payer pour débloquer</span>
+                <span *ngIf="isLoading">Traitement en cours...</span>
+              </button>
+            </div>
+
+            <!-- Contenu débloqué -->
+            <div id="sociallocker-content" *ngIf="isPaid">
+              <a href="{{ visited }}">Accéder à la visite virtuelle</a>
+            </div>
+
+            <!-- Overlay -->
+            <div
+              id="sociallocker-overlay"
+              *ngIf="!isPaid"
+              style="text-align: center; margin-top: 10px"
+            >
+              <i class="fas fa-lock"></i> Payer pour débloquer la visite
+              virtuelle
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

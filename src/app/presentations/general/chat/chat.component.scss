@@ -1,0 +1,78 @@
+/* Styles généraux */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Conteneur principal */
+div {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+/* Titre */
+h2 {
+    color: #35424a;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Paragraphe */
+p {
+    color: #666;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styles du formulaire */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Étiquettes */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #35424a;
+}
+
+/* Champs de saisie */
+input, textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+/* Effet de focus sur les champs */
+input:focus, textarea:focus {
+    border-color: #35424a;
+    outline: none;
+}
+
+/* Bouton */
+button {
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+/* Effet de survol sur le bouton */
+button:hover {
+    background: #2c3e50;
+}
+

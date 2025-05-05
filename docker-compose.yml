@@ -1,0 +1,17 @@
+name: yelemanci-ihm
+
+services:
+  app:
+    container_name: yeleman
+    build: .
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
+

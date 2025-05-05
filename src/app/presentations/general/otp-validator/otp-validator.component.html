@@ -1,0 +1,57 @@
+<div
+  class="container height-100 d-flex justify-content-center align-items-center"
+>
+  <div class="position-relative">
+    <div class="card p-2 text-center">
+      <h6>
+       Veuillez valider votre compte <br />
+
+      </h6>
+      <div><span>Un code a usage unique a été envoyé à </span> <small>{{email}}</small></div>
+      <form [formGroup]="forgetPass">
+
+
+      <div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+
+
+        <input
+          class="m-2 text-center form-control rounded"
+          type="text"
+          formControlName="otp1"
+          id="first"
+          maxlength="1"
+        />
+        <input
+          class="m-2 text-center form-control rounded"
+          type="text"
+          formControlName="otp2"
+          id="second"
+          maxlength="1"
+        />
+        <input
+          class="m-2 text-center form-control rounded"
+          type="text"
+          formControlName="otp3"
+          id="third"
+          maxlength="1"
+        />
+        <input
+          class="m-2 text-center form-control rounded"
+          type="text"
+          formControlName="otp4"
+          id="fourth"
+          maxlength="1"
+        />
+
+      </div>
+    </form>
+      <div class="mt-4" style="display: flex; justify-content: space-between; gap: 40px;">
+        <!-- <button  class="btn btn-danger px-4 validate">Valider</button> -->
+        <p-button (click)="handleRegenerate()" label="Regenerer" [raised]="true" [rounded]="true" severity="secondary" />
+        <p-button (click)="handleSubmit()" [raised]="true" label="Valider" severity="info"  [rounded]="true"/>
+
+        <!-- <button  class="btn  px-4 " style="background-color: green; color: white; border-radius: 25px;">Regenerer</button> -->
+      </div>
+    </div>
+  </div>
+</div>

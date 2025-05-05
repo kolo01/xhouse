@@ -1,0 +1,48 @@
+<!-- Banner -->
+<div class="top-banner" id="topBanner">
+  <span id="bannerMessage">🎉 Bienvenue chez vous ! Découvrez nos nouvelles offres spéciales !</span>
+  <button class="banner-close" (click)="closeBanner()">×</button>
+</div>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" style="color: #3d6eeb;"><img src="/logo.png" width="80" height="80"  alt="logo"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item active" *ngIf="role === 'PROPRIETAIRE'">
+          <a class="nav-link" routerLink="/home">Propriétaire</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/details">Nos proprietés</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/#services">Services</a>
+        </li>
+      </ul>
+
+      <div class="auth-buttons" >
+        <ng-container *ngIf="isConnected; else elseTemplate">
+          <p-avatar (click)="showDialog()" image="avatar.png" class="mr-2 white text-white" size="normal"  shape="circle" />
+          <div style="margin-top: 50px;">
+          <p-dialog header="Mon compte" [modal]="true" [(visible)]="visible" [position]="'topright'" [style]="{ width: '25rem'}" >
+            <div style="display: grid; gap: 25px; margin-left: 50px; ">
+          <a (click)="logout()" href="/" style="color: black;text-decoration-line: none;">Deconnexion</a>
+          <a  routerLink="/profils" style="color: black;text-decoration-line: none;">Profils</a>
+          <a  href="#" style="color: black; text-decoration-line: none;">Mes abonnements</a>
+        </div>
+
+        </p-dialog>
+      </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <a routerLink="/login" class="btn-login">Se connecter</a>
+          <!-- <a routerLink="/register" class="btn-signup">S'inscrire</a> -->
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>

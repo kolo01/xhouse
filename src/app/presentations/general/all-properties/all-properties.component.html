@@ -1,0 +1,111 @@
+<app-navbar/>
+<!-- Property List Start -->
+<div class="container-fluid  py-5 my-5" style="padding-left: 200px;padding-right: 200px;">
+  <div class="">
+    <div class="row g-0 gx-5 align-items-end">
+        <div class="col-lg-6">
+            <div class="text-start mx-auto mb-5 wow slideInLeft" data-wow-delay="0.1s">
+                <h1 class="mb-3">Listes des propriétés</h1>
+                <!-- <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit eirmod sit diam justo sed rebum.</p> -->
+            </div>
+        </div>
+        <div class="col-lg-6 text-start text-lg-end wow slideInRight" data-wow-delay="0.1s">
+            <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+                  <!-- <li class="nav-item me-2">
+                      <a class="btn btn-outline-primary active" data-bs-toggle="pill" href="#tab-1">Nouveau</a>
+                  </li> -->
+
+                <!-- <li class="nav-item me-0">
+                    <a class="btn btn-outline-primary" data-bs-toggle="pill" href="#tab-3">A louer</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+      <div id="tab-1" class="tab-pane fade show p-0 active">
+          <div class="row g-4">
+            <div  style="  display: grid;
+            grid-template-columns: 2fr 2fr 2fr; /* 3 colonnes égales */
+            gap: 10px; width: 10wh;" *ngIf="property.length > 0; else noData">
+              <div style="margin: 20px;"   *ngFor="let property of property">
+                <div
+                  class=" wow fadeInUp"
+                  data-wow-delay="0.1s"
+                >
+                  <div class="property-item rounded overflow-hidden">
+                    <div class="position-relative overflow-hidden">
+                      <a href="details/house/{{ property.id }}"
+                        >
+                        <div *ngIf="property.images[0] && property.images.length > 0; else elseBlock">
+        <img [src]="property.images[0].image ? 'https://res.cloudinary.com/dcjjkfjas/' + property.images[0].image : 'assets/images/shooting_photo.png'" class="card-img-top" alt="{{ property.label }}" height="200" style="object-fit: cover;">
+        </div>
+                        <ng-template #elseBlock>
+                          <img src="assets/images/shooting_photo.png" class="card-img-top" alt="{{ property.label }}" height="200" style="object-fit: cover;">
+                        </ng-template>
+                      </a>
+                      <div
+                        class="bg-primary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3"
+                      >
+                        A louer
+                      </div>
+                      <div
+                        class="bg-white rounded-top text-primary position-absolute start-0 bottom-0 mx-4 pt-1 px-3"
+                      >
+                        {{ property.property_type }}
+                      </div>
+                    </div>
+                    <div class="p-4 pb-0">
+                      <h5 class="text-primary mb-3 text-left" style="font-size: 17px; font-weight: 900;">
+                        {{ property.price }}FCFA / Mois
+                      </h5>
+                      <a
+                        class="d-block h5 mb-2"
+                        style="font-size: 20px; font-weight: 600;"
+                        href="details/house/Villa-a-louer"
+                        >{{ property.label }}</a
+                      >
+                      <p>
+                        <i class="fa fa-map-marker-alt text-primary me-2"></i
+                        >{{ property.address }}
+                      </p>
+                    </div>
+                    <div class="d-flex border-top">
+                      <small class="flex-fill text-center border-end py-2"
+                        ><i class="fa fa-ruler-combined text-primary me-2"></i
+                        >{{ property.surface }}m<sup>2</sup></small
+                      >
+                      <small class="flex-fill text-center border-end py-2"
+                        ><i class="fa fa-bed text-primary me-2"></i
+                        >{{ property.bedrooms_number }} chambres</small
+                      >
+                      <small class="flex-fill text-center py-2"
+                        ><i class="fa fa-bath text-primary me-2"></i
+                        >{{
+                          property.bedrooms_number
+                            ? property.bedrooms_number
+                            : 0
+                        }}
+                        douches</small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ng-template #noData>
+              <p>Aucune propriété disponible.</p>
+
+            </ng-template>
+
+
+
+              <!-- <div class="col-12 text-center wow fadeInUp" data-wow-delay="0.1s">
+                  <a class="btn btn-primary py-3 px-5" href="#">Voir Plus</a>
+              </div> -->
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Property List End -->
+<app-footer/>

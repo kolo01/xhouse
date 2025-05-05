@@ -1,0 +1,288 @@
+<app-navabar></app-navabar>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <app-sidebar-owner></app-sidebar-owner>
+    </nav>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5 mt-5">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Modifier la propriété <i class="fas fa-building"></i></h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <button type="button" class="btn btn-primary">
+            <a routerLink="/properties" class="nav-link">
+              <i class="fas fa-arrow-left me-2"></i>Retour
+            </a>
+          </button>
+        </div>
+      </div>
+
+     <div class="card">
+        <div class="card-body">
+          <form id="addPropertyForm" [formGroup]="propertyForm" (ngSubmit)="submit()" enctype="multipart/form-data">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label" for="label">Nom de la propriété</label>
+                <input type="text" class="form-control" required id="label" formControlName="label"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['label'])"
+                       [class.is-valid]="isValid(propertyForm.controls['label'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['label'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['label'].hasError('required')">
+                    Veuillez entrer un nom pour la propriété !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['label'].hasError('minlength')">
+                    Le nom doit comporter 05 caractères ou plus !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-6">
+                <label for="property_type" class="form-label">Type de propriété</label>
+                <select class="form-select" required id="property_type" formControlName="property_type"
+                [ngClass]="{'is-invalid': isInvalid(propertyForm.controls['property_type']), 'is-valid': isValid(propertyForm.controls['property_type'])}"
+                >
+                  <option value="">Choisir...</option>
+                  <option value="Appartement">Appartement</option>
+                  <option value="Duplex">Duplex</option>
+                  <option value="Villa">Villa</option>
+                  <option value="Studio">Studio</option>
+                </select>
+                <small *ngIf="isInvalid(propertyForm.controls['property_type'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['property_type'].hasError('invalidSelection')">
+                    Veuillez sélectionner une option valide !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="price" class="form-label">Prix du loyer</label>
+                <div class="input-group">
+                  <input type="number" class="form-control" required id="price" formControlName="price"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['price'])"
+                       [class.is-valid]="isValid(propertyForm.controls['price'])"
+                  >
+                  <span class="input-group-text">FCFA</span>
+                </div>
+                <small *ngIf="isInvalid(propertyForm.controls['price'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['price'].hasError('required')">
+                    Veuillez entrer un prix pour la propriété !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['price'].hasError('positive')">
+                    Le prix doit être supérieur à zéro !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="city" class="form-label">Ville</label>
+                <input type="text" class="form-control" required id="city" formControlName="city"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['city'])"
+                       [class.is-valid]="isValid(propertyForm.controls['city'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['city'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['city'].hasError('required')">
+                    Veuillez entrer une ville pour la propriété !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['city'].hasError('minlength')">
+                    La ville doit comporter 03 caractères ou plus !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="address" class="form-label">Quartier</label>
+                <input type="text" class="form-control" required id="address" formControlName="address"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['address'])"
+                       [class.is-valid]="isValid(propertyForm.controls['address'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['address'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['address'].hasError('required')">
+                    Veuillez entrer une adresse pour la propriété !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['address'].hasError('minlength')">
+                    L'adresse doit comporter 05 caractères ou plus !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="bedrooms_number" class="form-label">Nombre de chambres</label>
+                <input type="number" class="form-control" required id="bedrooms_number" formControlName="bedrooms_number"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['bedrooms_number'])"
+                       [class.is-valid]="isValid(propertyForm.controls['bedrooms_number'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['bedrooms_number'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['bedrooms_number'].hasError('required')">
+                    Veuillez entrer un nombre de chambres !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['bedrooms_number'].hasError('positive')">
+                    Le nombre de chambres doit être supérieur à zéro !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['bedrooms_number'].hasError('max')">
+                    Le nombre de chambres doit être inférieur à 10 !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="bathrooms_number" class="form-label">Nombre de salles de bain</label>
+                <input type="number" class="form-control" required id="bathrooms_number" formControlName="bathrooms_number"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['bathrooms_number'])"
+                       [class.is-valid]="isValid(propertyForm.controls['bathrooms_number'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['bathrooms_number'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['bathrooms_number'].hasError('required')">
+                    Veuillez entrer un nombre de salles de bain !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['bathrooms_number'].hasError('positive')">
+                    Le nombre de salles de bain doit être supérieur à zéro !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['bathrooms_number'].hasError('max')">
+                    Le nombre de salles de bain doit être inférieur à 10 !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-md-4">
+                <label for="surface" class="form-label">Surface (m²)</label>
+                <input type="number" class="form-control" required id="surface" formControlName="surface"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['surface'])"
+                       [class.is-valid]="isValid(propertyForm.controls['surface'])"
+                >
+                <small *ngIf="isInvalid(propertyForm.controls['surface'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['surface'].hasError('required')">
+                    Veuillez entrer la surface !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['surface'].hasError('positive')">
+                    La surface doit être supérieur à zéro !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" rows="3" required id="description" formControlName="description"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['description'])"
+                       [class.is-valid]="isValid(propertyForm.controls['description'])"
+                ></textarea>
+                <small *ngIf="isInvalid(propertyForm.controls['description'])" class="text-danger">
+                  <ng-container *ngIf="propertyForm.controls['description'].hasError('required')">
+                    Veuillez entrer une description !
+                  </ng-container>
+                  <ng-container *ngIf="propertyForm.controls['description'].hasError('minlength')">
+                    La description doit comporter 15 caractères ou plus !
+                  </ng-container>
+                </small>
+              </div>
+              <div class="col-12">
+                <label for="images" class="form-label">Photos</label>
+                <input type="file" class="form-control" multiple accept="image/*" id="images" (change)="onFileChange($event)"
+                       [class.is-invalid]="isInvalid(propertyForm.controls['images'])"
+                       [class.is-valid]="isValid(propertyForm.controls['images'])" aria-describedby="fileHelp"
+                >
+                  <small id="fileHelp" class="form-text text-muted">
+                    Formats acceptés : JPG, PNG, GIF. Taille maximale : 2 Mo.
+                  </small>
+              </div>
+              <hr>
+              <div formGroupName="characteristics">
+                <h4>Caractéristiques</h4>
+                <div class="row">
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="nearby_school_or_university" formControlName="nearby_school_or_university" />
+                      <label class="form-check-label" for="nearby_school_or_university" >A proximité Ecole/Université</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="quiet_area" formControlName="quiet_area" />
+                      <label class="form-check-label" for="quiet_area">Quartier calme</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="swimming_pool" formControlName="swimming_pool" />
+                      <label class="form-check-label" for="swimming_pool">Piscine</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="commercial_area" formControlName="commercial_area"/>
+                      <label class="form-check-label" for="commercial_area">En zone commerciale</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="flexCheckDefault" formControlName="general_condition_new" />
+                      <label class="form-check-label" for="flexCheckDefault">Etat général: Neuf</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="gym_room" formControlName="gym_room" />
+                      <label class="form-check-label" for="gym_room">Salle de sport</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="garden" formControlName="garden" />
+                      <label class="form-check-label" for="garden">Jardin</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="air_conditioning" formControlName="air_conditioning" />
+                      <label class="form-check-label" for="air_conditioning">Climatisation</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="city_center" formControlName="city_center" />
+                      <label class="form-check-label" for="city_center">En centre-ville</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="furnished_kitchen" formControlName="furnished_kitchen" />
+                      <label class="form-check-label" for="furnished_kitchen">Cuisine Meublée</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="furnished" formControlName="furnished" />
+                      <label class="form-check-label" for="furnished">Meublée</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="guardian" formControlName="guardian" />
+                      <label class="form-check-label" for="guardian">Gardien</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="balcony_terrace" formControlName="balcony_terrace" />
+                      <label class="form-check-label" for="balcony_terrace">Balcon / Terrasse</label>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="green_space" formControlName="green_space" />
+                      <label class="form-check-label" for="green_space">Espace vert</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="button" class="btn btn-secondary me-2" (click)="goBack()">Retour</button>
+                <button type="submit" [disabled]="propertyForm.invalid || isLoading" class="btn btn-primary">
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Ajouter la propriété
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

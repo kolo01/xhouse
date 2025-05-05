@@ -1,0 +1,158 @@
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+  <style>
+    .cascading-right {
+      margin-right: -50px;
+    }
+
+    @media (max-width: 991.98px) {
+      .cascading-right {
+        margin-right: 0;
+      }
+    }
+  </style>
+
+  <!-- Jumbotron -->
+  <div class="container py-4">
+    <div class="row g-0 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card cascading-right bg-body-tertiary" style="
+            backdrop-filter: blur(30px);
+            ">
+          <div class="card-body p-5 shadow-5 text-center">
+            <h2 class="fw-bold mb-5">Inscription</h2>
+
+
+              <!-- choix du type de compte -->
+
+              <div class="row">
+                <div class="col-md-5 mb-4">
+                  <input class="form-check-input" type="radio"(keyup)="onKey($event, 'password')"  name="user_type" id="exampleRadios1" value="LOCATAIRE" checked>
+                  <label class="form-check-label ms-1" for="exampleRadios1">
+                   Locataire
+                  </label>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <input class="form-check-input" type="radio" name="user_type" id="exampleRadios2" value="PROPRIETAIRE">
+                  <label  class="form-check-label ms-1" for="exampleRadios2">
+                    Proprietaire
+                  </label>
+                </div>
+              </div>
+
+ <!-- username input -->
+ <div data-mdb-input-init class="form-outline mb-4">
+  <input type="text" id="username" required  name="username" class="form-control" />
+  <label class="form-label" for="username">Nom d'utilisateur</label>
+</div>
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input required  type="text" id="first_name" name="first_name" class="form-control" />
+                    <label class="form-label" for="form3Example1">Nom</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input required  type="text" id="last_name" name="last_name" class="form-control" />
+                    <label class="form-label" for="form3Example2">Prenoms</label>
+                  </div>
+                </div>
+              </div>
+
+
+              <!-- email & number -->
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input required  type="text" id="email" name="email" class="form-control" />
+                    <label class="form-label" for="form3Example1">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input required  type="text" id="phone_number" name="phone_number" class="form-control" />
+                    <label class="form-label" for="form3Example2">Numéro de telephone</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- cni et numero cni  -->
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <select required  class="form-select" id="cards_type" name="cards_type" aria-label="Default select example">
+                    <option selected>Selectionner un type de document</option>
+                    <option value="CNI">CNI</option>
+                    <option value="ATTESTATION">ATTESTATION D'IDENTITE</option>
+                    <option value="RECEPISSE">RECEPISSE DE CNI</option>
+
+                  </select>
+                  <label class="form-label" for="cards_type">Type de document</label>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div data-mdb-input-init class="form-outline">
+                    <input required  type="number" id="num_cni" name="num_cni" class="form-control" />
+                    <label class="form-label" for="form3Example2">Numero du document</label>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <!-- Password input -->
+              <div data-mdb-input-init class="form-outline mb-4">
+                <input required  type="password" id="form3Example4" class="form-control" />
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+
+              <!-- Checkbox -->
+              <!-- <div class="form-check d-flex justify-content-center mb-4">
+                <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+                <label class="form-check-label" for="form2Example33">
+                  Subscribe to our newsletter
+                </label>
+              </div> -->
+
+              <!-- Submit button -->
+              <button (click)="handleSubmit()" style="background-color: blue; margin-bottom: 4; color: white; padding: 5;" >
+                S'inscrire
+              </button>
+              <p class="text-center">
+               Vous avez deja un compte? <a href="/login">Connectez vous</a>
+              </p>
+
+              <!-- Register buttons -->
+              <!-- <div class="text-center">
+                <p>or sign up with:</p>
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-facebook-f"></i>
+                </button>
+
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-google"></i>
+                </button>
+
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-twitter"></i>
+                </button>
+
+                <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                  <i class="fab fa-github"></i>
+                </button>
+              </div> -->
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" class="w-100 rounded-4 shadow-4"
+          alt="" />
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
+</section>
+<!-- Section: Design Block -->

@@ -1,0 +1,262 @@
+<app-navabar></app-navabar>
+<div class="container-fluid">
+  <div class="row">
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <app-sidebar-owner></app-sidebar-owner>
+    </nav>
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 p-5 mt-5">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <div>
+          <h1 class="h2">{{ property.label }}</h1>
+          <p class="text-muted">
+            <i class="fas fa-map-marker-alt me-2"></i>{{ property.address }}
+          </p>
+        </div>
+        <div class="btn-toolbar">
+          <button class="btn btn-success me-2" [routerLink]="['/update-property', property.slug]">
+            <i class="fas fa-edit me-2"></i>Modifier
+          </button>
+          <button class="btn btn-danger">
+            <i class="fas fa-trash me-2"></i>Supprimer
+          </button>
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs mb-4" id="propertyTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="details-tab" data-bs-toggle="tab" href="#details" role="tab">Détails</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="tenant-tab" data-bs-toggle="tab" href="#tenant" role="tab">Locataire</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="payments-tab" data-bs-toggle="tab" href="#payments" role="tab">Paiements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="maintenance-tab" data-bs-toggle="tab" href="#maintenance" role="tab">Maintenance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="documents-tab" data-bs-toggle="tab" href="#documents" role="tab">Documents</a>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="propertyTabContent">
+        <!-- Details Tab -->
+        <div class="tab-pane fade show active" id="details" role="tabpanel">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card mb-4">
+                <div id="propertyCarousel" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner" *ngIf="property.images && property.images.length > 0; else elseBlock">
+                    <ng-container *ngFor="let image of property.images">
+                      <div class="carousel-item active">
+                        <img [src]="'https://res.cloudinary.com/dcjjkfjas/' + image.image" class="d-block w-100" alt="{{ property.label }}">
+                      </div>
+                    </ng-container>
+                  </div>
+                  <ng-template #elseBlock>
+                    <img src="assets/images/shooting_photo.png" class="card-img-top" alt="{{ property.label }}" height="200" style="object-fit: cover;">
+                  </ng-template>
+                  <button class="carousel-control-prev" style="color:red" type="button" data-bs-target="#propertyCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" style="color:red"></span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#propertyCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">Description</h5>
+                  <p>{{property.description}}</p>
+
+                  <h5 class="mt-4">Caractéristiques</h5>
+                  <div class="row g-3">
+                    <div class="col-6 col-md-4">
+                      <div class="d-flex align-items-center">
+                        <i class="fas fa-bed text-primary me-2"></i>
+                        <span>{{property.bedrooms_number}} chambres</span>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <div class="d-flex align-items-center">
+                        <i class="fas fa-bath text-primary me-2"></i>
+                        <span>{{property.bathrooms_number}} salles de bain</span>
+                      </div>
+                    </div>
+                    <div class="col-6 col-md-4">
+                      <div class="d-flex align-items-center">
+                        <i class="fas fa-vector-square text-primary me-2"></i>
+                        <span>{{property.surface}} m²</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">Informations financières</h5>
+                  <ul class="list-unstyled">
+                    <li class="mb-2">
+                      <strong>Loyer mensuel:</strong>
+                      <span class="float-end">{{property.price}} FCFA</span>
+                    </li>
+<!--                    <li class="mb-2">
+                      <strong>Caution:</strong>
+                      <span class="float-end">900,000 FCFA</span>
+                    </li>
+                    <li class="mb-2">
+                      <strong>Charges:</strong>
+                      <span class="float-end">50,000 FCFA</span>
+                    </li>-->
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Statut</h5>
+                  <div [ngClass]="{'alert-success': property.state === 'Disponible',
+                    'alert-danger': property.state === 'Occupée',
+                    'alert-warning': property.state === 'Maintenance'
+                    }" class="alert" role="alert">
+                    <i [ngClass]="{'bi bi-check-circle me-3': property.state === 'Disponible',
+                    'bi bi-exclamation-lg me-3': property.state === 'Occupée',
+                    'bi bi-tools me-3': property.state === 'Maintenance'
+                    }"
+                    ></i>{{property.state}}
+                  </div>
+<!--                  <p class="mb-2">
+                    <strong>Date d'occupation:</strong>
+                    <span class="float-end">01/01/2024</span>
+                  </p>
+                  <p class="mb-0">
+                    <strong>Fin du bail:</strong>
+                    <span class="float-end">31/12/2024</span>
+                  </p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tenant Tab -->
+        <div class="tab-pane fade" id="tenant" role="tabpanel">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Information du locataire</h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <p><strong>Nom:</strong> John Doe</p>
+                  <p><strong>Téléphone:</strong> +225 07 07 07 07 07</p>
+                  <p><strong>Email:</strong> john.doeemail.com</p>
+                </div>
+                <div class="col-md-6">
+                  <p><strong>Date d'entrée:</strong> 01/01/2024</p>
+                  <p><strong>Durée du bail:</strong> 12 mois</p>
+                  <p><strong>Statut du paiement:</strong> <span class="badge bg-success">À jour</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payments Tab -->
+        <div class="tab-pane fade" id="payments" role="tabpanel">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Historique des paiements</h5>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Montant</th>
+                      <th>Type</th>
+                      <th>Statut</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>01/03/2024</td>
+                      <td>450,000 FCFA</td>
+                      <td>Loyer</td>
+                      <td><span class="badge bg-success">Payé</span></td>
+                    </tr>
+                    <!-- Add more payment rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Maintenance Tab -->
+        <div class="tab-pane fade" id="maintenance" role="tabpanel">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0">Maintenance</h5>
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-plus me-2"></i>Nouvelle demande
+                </button>
+              </div>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Priorité</th>
+                      <th>Statut</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>15/02/2024</td>
+                      <td>Réparation climatiseur</td>
+                      <td><span class="badge bg-warning">Moyenne</span></td>
+                      <td><span class="badge bg-success">Terminé</span></td>
+                      <td>
+                        <button class="btn btn-sm btn-outline-primary">Détails</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Documents Tab -->
+        <div class="tab-pane fade" id="documents" role="tabpanel">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="card-title mb-0">Documents</h5>
+                <button class="btn btn-primary btn-sm">
+                  <i class="fas fa-upload me-2"></i>Ajouter
+                </button>
+              </div>
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action">
+                  <div class="d-flex w-100 justify-content-between">
+                    <h6 class="mb-1">Contrat de bail</h6>
+                    <small class="text-muted">01/01/2024</small>
+                  </div>
+                  <small class="text-muted">PDF - 2.5 MB</small>
+                </a>
+                <!-- Add more documents -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

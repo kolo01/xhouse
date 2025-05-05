@@ -1,0 +1,83 @@
+<section class="sign-in" style="padding-top: 5%;">
+  <div class="container">
+    <div class="text-center">
+      <a routerLink="/"><img src="logo.png" alt="Logo" width="150" height="150" class="pb-0"></a>
+      <!-- <h6 class="pt-0" style=" font-weight: 600; font-size: 18px;">Bienvenue chez <a style="text-decoration: none; color:#343ecf; " routerLink="/">YELEMAN CI</a></h6> -->
+      <p style="font-size: 18px; font-weight: 600; color: black;">Saisissez votre nom d'utilisateur et votre de passe pour vous connecter ou créer un compte !</p>
+    </div>
+      <div class="signin-content">
+          <div class="signin-image">
+              <figure><img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" alt="sing up image"></figure>
+              <a routerLink="/register" class="signup-image-link">Créer un compte</a>
+          </div>
+
+          <div class="signin-form">
+            <h2 class="form-title">Connexion</h2>
+            <p>
+              @if (resetMessage != "") {
+                <div class="alert alert-success" role="alert">
+                  {{ resetMessage }}
+                </div>
+              }
+            </p>
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="register-form" id="login-form">
+                <div class="form-group">
+                    <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                    <input type="text" name="username" id="username" placeholder="Nom d'utilisateur"
+                    formControlName="username" [class.is-invalid]="isInvalid(myForm.controls['username'])"
+                       [class.is-valid]="isValid(myForm.controls['username'])"
+                    />
+                  <small *ngIf="isInvalid(myForm.controls['username'])" class="text-danger">
+                    <ng-container *ngIf="myForm.controls['username'].hasError('required')">
+                      Veuillez entrer votre nom d'utilisateur !
+                    </ng-container>
+                  </small>
+                </div>
+                <div class="form-group">
+                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                    <input type="password" name="password" id="password" placeholder="Mot de passe"
+                    formControlName="password" [class.is-invalid]="isInvalid(myForm.controls['price'])"
+                       [class.is-valid]="isValid(myForm.controls['password'])"
+                    />
+                  <small *ngIf="isInvalid(myForm.controls['password'])" class="text-danger">
+                    <ng-container *ngIf="myForm.controls['password'].hasError('required')">
+                      Veuillez entrer votre mot de passe !
+                    </ng-container>
+                  </small>
+                </div>
+              <div class="form-group">
+                    <a (click)="showDialogModal()" style="text-decoration: none; color:#343ecf; cursor: pointer;"
+                       class="label-agree-term"><span><span></span></span>Mot de passe oublié?</a>
+                </div>
+<!--                            <div class="form-group">-->
+<!--                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />-->
+<!--                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>-->
+<!--                            </div>-->
+                <div class="form-group form-button">
+                  <button type="submit" [disabled]="myForm.invalid || isLoading" class=" btn form-submit" style="background-color: #343ecf;">
+                  <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Connexion
+                </button>
+<!--                    <input type="submit" name="signin" id="signin" class="form-submit" value="Connexion"-->
+<!--                    [disabled]="myForm.invalid || isLoading"-->
+<!--                    />-->
+                </div>
+
+            </form>
+<!--            <div class="social-login">-->
+<!--                <span class="social-label">Or login with</span>-->
+<!--                <ul class="socials">-->
+<!--                    <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>-->
+<!--                    <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>-->
+<!--                    <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+          </div>
+      </div>
+  </div>
+</section>
+
+
+
+
+<!-- modal1 -->

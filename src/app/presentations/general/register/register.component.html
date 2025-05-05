@@ -1,0 +1,147 @@
+<div class="principale" style="padding-top: 5%;">
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet"
+        id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <div class="container register">
+    <div class="row">
+      <div class="col-md-3 register-left">
+        <a routerLink="/"><img src="logo.png" alt="Logo" width="130" height="120" class="pb-0"></a>
+        <h3 style="text-decoration: none; color:black;">Bienvenue chez <a style="text-decoration: none; color:black; font-weight: 700;" routerLink="/">X-HOUSE IMMOBILIER</a></h3>
+        <p class="text-lead" style="font-size: 18px;font-weight: 600; text-decoration: none; color:black;">La plateforme qui résoud vos soucis de logement !</p>
+        <a style="text-decoration: none; color:blue;" routerLink="/login"><input style="color:rgb(13, 72, 235); border: 1px solid rgb(0, 17, 255); background-color: transparent;" type="submit" name="" value="Connexion"/></a><br/>
+        <span class="text-lead">Déjà un compte ?</span>
+      </div>
+
+      <div class="col-md-9 register-right">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <h3 class="register-heading">INSCRIPTION </h3>
+            <form [formGroup]="formInsc">
+              <div class="row register-form">
+                @if(message.length > 0){
+                  <p class="alert alert-danger">{{message}}</p>
+                }
+
+                <div class="wrapper">
+                  <input type="radio" formControlName="user_type" value="LOCATAIRE" name="user_type"
+                         class="todisable" id="option-1" checked>
+                  <input type="radio" formControlName="user_type" name="user_type" value="PROPRIETAIRE"
+                         class="todisable" id="option-2">
+                  <label for="option-1" class="option option-1">
+                    <div class="dot"></div>
+                     <span>Locataire</span>
+                  </label>
+                  <label for="option-2" class="option option-2">
+                    <div class="dot"></div>
+                     <span>Propriétaire</span>
+                  </label>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <input type="text" formControlName="first_name" class="form-control" placeholder="Nom *"
+                             value="" [class.is-invalid]="isInvalid(formInsc.controls['first_name'])"
+                             [class.is-valid]="isValid(formInsc.controls['first_name'])"
+                      />
+                      <small *ngIf="isInvalid(formInsc.controls['first_name'])" class="text-danger">
+                        <ng-container *ngIf="formInsc.controls['first_name'].hasError('required')">
+                          Veuillez entrer votre Nom !
+                        </ng-container>
+                      </small>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" formControlName="last_name" class="form-control" placeholder="Prénoms *"
+                               value="" [class.is-invalid]="isInvalid(formInsc.controls['last_name'])"
+                               [class.is-valid]="isValid(formInsc.controls['last_name'])"
+                      />
+                      <small *ngIf="isInvalid(formInsc.controls['last_name'])" class="text-danger">
+                        <ng-container *ngIf="formInsc.controls['last_name'].hasError('required')">
+                          Veuillez entrer vos prénoms !
+                        </ng-container>
+                      </small>
+                    </div>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <input type="password" formControlName="password" class="form-control"
+                               placeholder="Mot de passe *" value="" [type]="isPasswordVisible ? 'text' : 'password'"
+                                    [class.is-valid]="isValid(formInsc.controls['password'])"
+                               [class.is-invalid]="isInvalid(formInsc.controls['password'])"
+                        />
+                        <button
+                          type="button"
+                          (click)="togglePasswordVisibility()"
+                          class="btn btn-outline-primary">
+                          <i [ngClass]="isPasswordVisible ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                        </button>
+                      </div>
+                      <small *ngIf="isInvalid(formInsc.controls['password'])" class="text-danger">
+                        <ng-container *ngIf="formInsc.controls['password'].hasError('required')">
+                          Veuillez entrer votre un mot de passe !
+                        </ng-container>
+                        <ng-container *ngIf="formInsc.controls['password'].hasError('minlength')">
+                          Minimum 08 caractères!
+                        </ng-container>
+                        <ng-container *ngIf="formInsc.controls['password'].hasError('complexity')">
+                          Le mot de passe doit contenir au moins une lettre majuscule, une minuscule, un chiffre et un caractère spécial.
+                        </ng-container>
+                      </small>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" formControlName="username"
+                           placeholder="Nom d'utilisateur *" value="" [class.is-valid]="isValid(formInsc.controls['username'])"
+                           [class.is-invalid]="isInvalid(formInsc.controls['username'])"
+                    />
+                    <small *ngIf="isInvalid(formInsc.controls['username'])" class="text-danger">
+                      <ng-container *ngIf="formInsc.controls['username'].hasError('required')">
+                        Veuillez entrer votre nom d'utilisateur !
+                      </ng-container>
+                      <ng-container *ngIf="formInsc.controls['username'].hasError('minlength')">
+                        Minimum 04 caractères!
+                      </ng-container>
+                    </small>
+                  </div>
+                    <div class="form-group">
+                      <input type="email" formControlName="email" class="form-control"
+                             placeholder="Email *" value="" [class.is-invalid]="isInvalid(formInsc.controls['email'])"
+                             [class.is-valid]="isValid(formInsc.controls['email'])"
+                      />
+                      <small *ngIf="isInvalid(formInsc.controls['email'])" class="text-danger">
+                        <ng-container *ngIf="formInsc.controls['email'].hasError('required')">
+                          Veuillez entrer votre Email !
+                        </ng-container>
+                        <ng-container *ngIf="formInsc.controls['email'].hasError('email')">
+                          Veuillez entrer un Email valide !
+                        </ng-container>
+                      </small>
+                    </div>
+                    <div class="form-group">
+                      <input type="password" formControlName="confirmPassword"
+                             name="confirmPassword" [class.is-invalid]="isInvalid(formInsc.controls['confirmPassword']) || formInsc.hasError('mismatch')"
+                             class="form-control" placeholder="Confirmation du mot de passe *" value=""
+                             [class.is-valid]="isValid(formInsc.controls['confirmPassword'])"
+                      />
+                      <small *ngIf="isInvalid(formInsc.controls['confirmPassword']) || formInsc.hasError('mismatch')" class="text-danger">
+                        <ng-container *ngIf="formInsc.controls['confirmPassword'].hasError('required')">
+                          Veuillez confirmer votre mot de passe !
+                        </ng-container>
+                        <ng-container *ngIf="formInsc.hasError('mismatch')">
+                          Les deux mots de passe ne correspondent pas !
+                        </ng-container>
+                      </small>
+                    </div>
+                    <p-button type="submit" [disabled]="formInsc.invalid" [loading]="isloading"
+                              (click)="handleSubmit()" class="btnRegister"  label="Inscription"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

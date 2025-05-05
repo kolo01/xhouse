@@ -1,0 +1,222 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+<body>
+  <div class="parallax-container">
+    <div class="parallax-bg"></div>
+  </div>
+  <app-navbar></app-navbar>
+
+  <section class="hero">
+    <div class="hero-content glass-effect">
+      <h1>Trouvez la maison de vos rêves</h1>
+      <p>
+        Vivez une expérience de vie luxueuse avec les propriétés exclusives de
+        YELEMAN CI
+      </p>
+      <a href="/details" class="cta-button"> Propriétés</a>
+    </div>
+  </section>
+
+  <!-- <section class="about">
+    <h1> Visitez , Louer depuis chez vous</h1>
+  </section> -->
+
+  <section class="featured-properties">
+    <div class="container">
+      <h2 class="section-title">Nouvelles propriétés</h2>
+      <div class="property-grid" style="display: grid; margin-top: 20px;">
+          @for (propertie of properties; track $index) {
+          <a href="/details/house/{{propertie.slug}}" class="property-card" >
+            <div class="card h-100" style="border:none">
+              <div class="position-relative">
+                <div [ngClass]="{'badge bg-success': propertie.state === 'Disponible',
+                  'badge bg-danger': propertie.state === 'Occupée',
+                  'badge bg-warning': propertie.state === 'Maintenance'
+                  }"
+                  class="badge position-absolute text-white top-0 end-0 m-3">{{ propertie.state }}
+                </div>
+
+                <div *ngIf="propertie.images && propertie.images.length > 0; else elseBlock">
+                  <div *ngIf="propertie.images[0]">
+                    <img [src]="getImageSrc(propertie.images[0])" class="card-img-top" alt="{{ propertie.label }}" height="200" style="object-fit: cover;">
+                  </div>
+                </div>
+                <ng-template #elseBlock>
+                  <img src="assets/images/shooting_photo.png" class="card-img-top" alt="{{ propertie.label }}" height="200" style="object-fit: cover;">
+                </ng-template>
+
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ propertie.label }}</h5>
+                <p class="card-text">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>{{ propertie.address }}
+                </p>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <small class="text-muted">
+                      <i class="fas fa-bed me-2"></i>{{ propertie.bedrooms_number }} chambres
+                    </small>
+                  </div>
+                  <div class="col-6">
+                    <small class="text-muted">
+                      <i class="fas fa-bath me-2"></i>{{ propertie.bathrooms_number }} salles de bain
+                    </small>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h6 class="mb-0">{{ propertie.price }} FCFA/mois</h6>
+                </div>
+              </div>
+
+            </div>
+          </a>
+          }@empty {
+          <p style="text-align: center">Aucune proprieté de disponible.</p>
+
+          }
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <h2 class="section-title">Nos Services</h2>
+      <div class="services-grid">
+        <div class="service-card glass-effect">
+          <div class="service-icon">🏠</div>
+          <h3>Location de Propriétés</h3>
+          <p>
+            Trouvez la maison parfaite ou un bien d'investissement avec notre
+            expertise.
+          </p>
+        </div>
+        <div class="service-card glass-effect">
+          <div class="service-icon">🔑</div>
+          <h3>Gestion Immobilière</h3>
+          <p>
+            Laissez-nous gérer les opérations quotidiennes de vos propriétés
+            locatives.
+          </p>
+        </div>
+        <div class="service-card glass-effect">
+          <div class="service-icon">📊</div>
+          <h3>Analyse du Marché</h3>
+          <p>
+            Restez informé grâce à nos rapports complets sur le marché
+            immobilier.
+          </p>
+        </div>
+        <div class="service-card glass-effect">
+          <div class="service-icon">🤝</div>
+          <h3>Consultation d'Experts</h3>
+          <p>
+            Bénéficiez de conseils personnalisés de nos professionnels
+            expérimentés.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ccm">
+    <div class="container-ccm">
+      <section id="comment-ca-marche">
+        <h2 class="section-title">Comment ça marche ?</h2>
+        <div class="containerccm">
+          <div class="etape locataire">
+            <h3>
+              <div class="service-icon">🏠</div>
+              Pour les locataires
+            </h3>
+            <ul>
+              <li>
+                <div class="service-icon">📝</div>
+                Inscrivez-vous ou connectez-vous.
+              </li>
+              <li>
+                <div class="service-icon">🔎</div>
+                Recherchez une propriété.
+              </li>
+              <li>
+                <div class="service-icon">📩</div>
+                Envoyez une demande au propriétaire.
+              </li>
+            </ul>
+          </div>
+          <div class="etape proprietaire">
+            <h3>
+              <div class="service-icon">📢</div>
+              Pour les propriétaires
+            </h3>
+            <ul>
+              <li>
+                <div class="service-icon">📝</div>
+                Inscrivez-vous ou connectez-vous.
+              </li>
+              <li>
+                <div class="service-icon">📋</div>
+                Publiez une annonce pour votre bien.
+              </li>
+              <li>
+                <div class="service-icon">📬</div>
+                Répondez aux demandes des locataires.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <app-footer class="pt-5"></app-footer>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Parallax effect
+    gsap.to(".parallax-bg", {
+      yPercent: -20,
+      ease: "none",
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+      },
+    });
+
+    // Header background change on scroll
+    ScrollTrigger.create({
+      start: "top -80",
+      end: 99999,
+      toggleClass: { className: "scrolled", targets: "header" },
+    });
+
+    // Animate property cards
+    gsap.utils.toArray(".property-card").forEach((card) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        scrollTrigger: {
+          trigger: card,
+          start: "top bottom-=100",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+
+    // Animate service cards
+    gsap.utils.toArray(".service-card").forEach((card) => {
+      gsap.from(card, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 1,
+        scrollTrigger: {
+          trigger: card,
+          start: "top bottom-=100",
+          toggleActions: "play none none reverse",
+        },
+      });
+    });
+  </script>
+</body>
