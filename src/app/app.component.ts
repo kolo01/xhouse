@@ -14,7 +14,7 @@ import {MessageService} from 'primeng/api';
   providers: [MessageService],
 })
 export class AppComponent {
-  title = 'YELEMAN CI';
+  title = 'X HOUSE IMMOBILIER';
   constructor(private localeStore: LocalStorageServiceService){}
   isConnected = false;
 
